@@ -15,10 +15,14 @@ export default class WalletAPI {
 			[WALLET_METHODS.removeEventHandler]:(key = null) => wallet.removeEventHandler(key),
 			[WALLET_METHODS.listen]:(handler) => wallet.addEventHandler(handler),
 			[WALLET_METHODS.getVersion]:() => wallet.sendApiRequest({ type:'getVersion', payload:{} }),
-			[WALLET_METHODS.getIdentity]:(requiredFields) => wallet.sendApiRequest({
-				type:'getOrRequestIdentity',
-				payload:{ fields:requiredFields ? requiredFields : {accounts:[context.holderFns.get().network]} }
-			}).then(setAndReturnId),
+			[WALLET_METHODS.getIdentity]:(requiredFields) => {
+				console.log(context.socketService.socket.id);
+				console.log(wallet.socket.id);
+				wallet.sendApiRequest({
+					type:'getOrRequestIdentity',
+					payload:{ fields:requiredFields ? requiredFields : {accounts:[context.holderFns.get().network]} }
+				}).then(setAndReturnId)
+			},
 			[WALLET_METHODS.getAllAccountsFor]:(requiredFields) => wallet.sendApiRequest({
 				type:'getAllAccountsFor',
 				payload:{ fields:requiredFields ? requiredFields : {accounts:[context.holderFns.get().network]} }

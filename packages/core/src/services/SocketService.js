@@ -61,6 +61,7 @@ export default class SocketService {
 			        if(type === 'ping') return this.socket.send(`42/scatter,["pong"]`);
 
 			        switch(type){
+								case 'id': return msg_id(data);
 				        case 'paired': return msg_paired(data);
 				        case 'rekey': return msg_rekey();
 				        case 'api': return msg_api(data);
@@ -68,6 +69,7 @@ export default class SocketService {
 			        }
 		        };
 
+		        const msg_id = result => this.socket.id = result.id;
 
 		        const msg_paired = result => {
 			        this.paired = result;
