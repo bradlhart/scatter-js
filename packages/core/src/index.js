@@ -58,7 +58,7 @@ class Index {
 
 			const wallets = PluginRepository.wallets();
 
-			if(socket) socket.disconnect();
+			if (socket) options.socket = socket;
 
 			let connected = false;
 			let promises = [];
